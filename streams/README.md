@@ -1,0 +1,3 @@
+readableObjectMode: true,
+
+writableObjectMode: true,
