@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/failwin/node-js-exam#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "from2": "^2.3.0",
     "split": "^1.0.1",
     "through2": "^3.0.1",
