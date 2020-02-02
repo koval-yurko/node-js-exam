@@ -1,19 +1,37 @@
-const { Readable, Transform } = require('readable-stream');
+const { Readable, Writable, Transform } = require('readable-stream');
 const through = require('through2');
 const from = require('from2');
 const to = require('to2');
+const split = require('split');
 
 class MyRead extends Readable {
-    /*
-    read(chunk) {
-        console.log('read: ' + chunk);
+    _read(size) {
+        this.__offset = this.__offset || 1;
+        if (this.__offset === 100) {
+            this.push(null);
+        } else {
+            this.push('data - ' + size * this.__offset + '\n');
+        }
+        this.__offset++;
     }
-    */
 }
+
+console.log('start 2');
+const myR = new MyRead();
 
 const upper = through((chunk, enc, cb) => {
     cb(null, chunk.toString().toUpperCase());
 })
+
+// myR
+// .pipe(upper)
+// .pipe(process.stdout);
+
+// const d = myR.read(10);
+// const d2 = myR.read(10);
+// console.log(d.toString());
+// console.log(d2.toString());
+
 
 const data = new Buffer.from('test\n');
 const data2 = new Buffer.from('test 2\n');
@@ -59,10 +77,10 @@ myRead.on('data', (data) => {
 */
 
 
-myRead
-.pipe(upper)
-.pipe(tr)
-.pipe(tr2)
+// myRead
+// .pipe(upper)
+// .pipe(tr)
+// .pipe(tr2)
 //.pipe(process.stdout);
 
 
@@ -73,3 +91,64 @@ rs.on('data', (chunk) => {
     ws.once('drain', () => rs.resume()) }
 });
 */
+
+/*
+readable.once('data', function (d) {
+
+    console.log(d.toString());              // Outputs 1
+    readable.pause();                       // Stops the stream from flowing
+    readable.unshift(d);                    // Put the 1 back on the stream
+
+    readable.on('data', function (d) {
+        console.log(d.toString());          // Outputs 1,1,2,3...
+    });
+
+    readable.resume();                      // Start the stream flowing again
+
+});
+*/
+
+// let i = 10;
+// const rs3 = Readable({
+//     read: () => {
+//         setTimeout(function () {
+//             rs3.push(i-- ? `data - ${i}` : null)
+//         }, 100);
+//     }
+// });
+// rs3.on('data', (data) => {
+//     console.log(data.toString())
+// });
+
+// var i = 20
+// const rs2 = Readable({
+//     read: (size) => {
+//         setImmediate(function () {
+//             rs2.push(i-- ? Buffer.alloc(size) : null)
+//         })
+//     }
+// })
+// const ws2 = Writable({
+//     write: (chunk, enc, cb) => {
+//         console.log(ws2._writableState.length)
+//         setTimeout(cb, 1)
+//     }
+// })
+
+// rs2.on('data', (chunk) => {
+//     // ws2.write(chunk);
+//     const writable = ws2.write(chunk)
+//     if (writable === false) {
+//         rs2.pause()
+//         ws2.once('drain', () => rs2.resume());
+//     }
+// });
+
+// // rs2.pipe(ws2);
+
+
+// fs.createReadStream(file)
+//     .pipe(split())
+//     .on('data', function (line) {
+//       //each chunk now is a separate line!
+//     })
