@@ -1,5 +1,6 @@
 const http = require('http');
 const url = require('url');
+const ws = require('ws')
 const { Readable } = require('readable-stream');
 
 // let i = 0;
@@ -61,3 +62,19 @@ req
         console.log('User Posted: ', data)
         res.end('You Posted: ' + JSON.stringify(data));
     });
+
+
+const app = fs.readFileSync('public/index.html');
+const server = http.createServer((req, res) => {
+    res.setHeader('Content-Type', 'text/html')
+    res.end(app);
+});
+const wss = new ws.Server({server});
+
+wss.on('connection', (socket) => {
+    socket.on('message', (msg) => {
+        console.log(`Received: ${msg}`)
+        console.log(`From IP: ${socket.upgradeReq.connection.remoteAddress} `);
+        if (msg === 'Hello') socket.send('Websockets!');
+    })
+});
