@@ -28,10 +28,47 @@ BigUint64Array();
 */
 
 
-const a = new Uint8Array(10);
-a[0] = 1;
-a[1] = 2;
+const a = new Uint8Array(10); // length 10, bytesLengts 10
+a.fill(1);
 const aB = a.buffer;
+a.forEach((el) => {
+    console.log(el, ' 8');
+});
+
+const a16 = new Uint16Array(a.buffer); // length 5, bytesLengts 10
+const a16A = a16.buffer;
+
+a16.forEach((el) => {
+    console.log(el, ' 16');
+});
+
+a16.fill(2);
+
+a.forEach((el) => {
+    console.log(el, ' 8');
+});
+
+const bb = a.slice(0, 4); // copy
+bb.forEach((el) => {
+    console.log(el, ' 8 s');
+});
+bb.fill(3);
+
+a.forEach((el) => {
+    console.log(el, ' 8');
+});
+console.log(bb.BYTES_PER_ELEMENT);
+
+const bc = new Uint16Array(a.buffer, 2, 3) // share, // length 3, bytesLengts 6
+bc.forEach((el) => {
+    console.log(el, ' 16 share');
+});
+bc.fill(4);
+
+a.forEach((el) => {
+    console.log(el, ' 8');
+});
+
 
 const buf = Buffer.from('d');
 console.log(buf instanceof Uint8Array);
