@@ -13,12 +13,6 @@ const { Readable } = require('readable-stream');
 //     test();
 // }, 1000);
 
-// --inspect-brk --inspect 
-
-// Error.stackTraceLimit = Infinity  --stack-trace-limit=21
-
-//  NODE_DEBUG=timer,http node index.js
-
 /*
 (function (exports, require, module, __filename, __dirname) {
     // module code here
@@ -26,12 +20,12 @@ const { Readable } = require('readable-stream');
 */
 
 class MyRead extends Readable {
-    
+
     _read() {
         this.push('data\n');
         this.push(null);
     }
-    
+
 }
 
 
