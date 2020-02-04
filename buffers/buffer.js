@@ -34,9 +34,28 @@ a[1] = 2;
 const aB = a.buffer;
 
 const buf = Buffer.from('d');
-const view = new Uint8Array(buf.buffer);
-console.log(view.byteLength);
+console.log(buf instanceof Uint8Array);
+console.log(buf[0], ' 0');
 
+// Copies the contents of `arr`.
+const viewCopy = new Uint8Array(buf); // Copies the contents of `arr`.
+console.log(viewCopy instanceof Uint8Array);
+console.log(viewCopy[0], ' 0');
+console.log(buf[0] === viewCopy[0], " equal");
+buf[0] = 10;
+console.log(buf[0] !== viewCopy[0], " no equal");
+console.log(buf.byteLength === viewCopy.byteLength, " equal 2");
+console.log(buf.length === viewCopy.length, " equal 3");
+
+// Shares memory with `arr`.
+const viewCopy2 = new Uint8Array(buf.buffer); // Shares memory with `arr`.
+viewCopy2.fill(0);
+console.log(viewCopy2[0], ' 0');
+console.log(buf[0], ' 0 origin');
+console.log(viewCopy[0], ' 0 copy');
+
+// DataView == TypedArray over ArrayBuffer
+// const dV = new DataView();
 
 
 const arr = new Uint16Array(2);
