@@ -51,4 +51,11 @@ isSymbolicLink // lstat
 // When an lstat command comes across a symlink, it stats the symlink itself,
 // rather than the file it points to
 
+// fs.acces
+// fs.F_OK (default), fs.R_OK , fs.W_OK and fs.X_OK
+// fs.access('/usr/local/bin/node', fs.R_OK | fs.W_OK | fs.X_OK, console.log)
+
+// fs.watc - OS spesific - method is unreliable
+// fs.watchFil - with polling - method is slow, CPU intensive and only watches an individual file.
+// npm install chokidar
 

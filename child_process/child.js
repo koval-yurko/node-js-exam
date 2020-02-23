@@ -1,8 +1,8 @@
 const {
-    spawn, // command execute with long running and huge output
-    fork, // nodejs process with comunication
-    exec, // shel ('cmd.exe') + exec comand limited
-    execFile, // exec command limited
+    exec, // shel ('cmd.exe') + exec comand limited + check result
+    execFile, // exec command limited + check result
+    spawn, // command execute with long running and huge output + stream I/O comunication
+    fork, // spawn nodejs process with comunication
 } = require('child_process');
 
 // events

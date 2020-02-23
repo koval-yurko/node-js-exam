@@ -1,4 +1,5 @@
 const path = require('path');
+const express = require('express');
 
 /**
  * @module
@@ -22,6 +23,8 @@ function getModulePathBasedOnParentModule(module){
     const modulePath = module.indexOf('/') >= 0 || module.indexOf(path.sep) >= 0 ? path.join(path.dirname(getStack()[2].getFileName()), module) : module;
     return require.resolve(modulePath);
 }
+
+console.log(require.resolve('express'));
 
 module.exports = {
 
